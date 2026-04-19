@@ -38,7 +38,7 @@ function removeTask(id: string) {
     <button :class="{ active: currentFilter === 'active' }" @click="currentFilter = 'active'">Active</button>
     <button :class="{ active: currentFilter === 'completed' }" @click="currentFilter = 'completed'">Completed</button>
   </div>
-
+  <TransitionGroup name="task">
   <article v-for="task in filteredTasks" :key="task.id">
     <span :class="{ done: task.done }">
       <p> {{ task.title }} </p>
@@ -52,6 +52,7 @@ function removeTask(id: string) {
       <button class="remove-btn" @click="removeTask(task.id)">Remove</button>
     </div>
   </article>
+  </TransitionGroup>
 </template>
 
 <style scoped>
@@ -107,5 +108,16 @@ function removeTask(id: string) {
 
 .remove-btn:hover {
   background-color: #dc2626;
+}
+
+.task-enter-active,
+.task-leave-active {
+  transition: all 0.5s ease;
+}
+
+.task-enter-from,
+.task-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
 }
 </style>
